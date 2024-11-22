@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosaico de Proyectos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 20px;
+        }
+        .filters {
+            margin-bottom: 20px;
+        }
+        .filters button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .filters button.active {
+            background-color: #45a049;
+        }
+        .mosaic {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .mosaic-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .mosaic-item:hover {
+            transform: scale(1.05);
+        }
+        .mosaic-item img {
+            width: 100%;
+            height: auto;
+        }
+        .mosaic-item .content {
+            padding: 15px;
+        }
+        .mosaic-item .tags {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .mosaic-item .tags span {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="filters">
+            <button class="filter-btn active" data-filter="*">Todos</button>
+            <button class="filter-btn" data-filter="deporte">Deporte</button>
+            <button class="filter-btn" data-filter="padel">Padel</button>
+            <button class="filter-btn" data-filter="equipamiento">Equipamiento</button>
+        </div>
+        <div class="mosaic">
+            <div class="mosaic-item" data-category="deporte padel">
+                <img src="https://example.com/padel1.jpg" alt="Padel 1">
+                <div class="content">
+                    <h3>Partido de Padel</h3>
+                    <p>Disfrutamos de un emocionante partido de padel.</p>
+                    <div class="tags">
+                        <span>Deporte</span>
+                        <span>Padel</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mosaic-item" data-category="equipamiento">
+                <img src="https://example.com/equipamiento1.jpg" alt="Equipamiento 1">
+                <div class="content">
+                    <h3>Pala de Padel</h3>
+                    <p>Las mejores palas para jugar al padel.</p>
+                    <div class="tags">
+                        <span>Equipamiento</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Más ítems del mosaico -->
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filter = button.getAttribute('data-filter');
+                document.querySelectorAll('.mosaic-item').forEach(item => {
+                    if (filter === '*' || item.getAttribute('data-category').includes(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
